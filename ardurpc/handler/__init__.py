@@ -21,7 +21,8 @@ class Handler(object):
             0x05: 'i',
             0x06: 'I',
             0x07: 'q',
-            0x08: 'Q'
+            0x08: 'Q',
+            0x09: 'f'
         }
         self.timeout = 1
 

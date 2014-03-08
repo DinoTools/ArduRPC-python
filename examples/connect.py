@@ -2,18 +2,19 @@
 
 import serial
 import ardurpc
+from ardurpc.connector.serial import Serial
 
 
 def connect():
     # Connect to the serial port
-    #ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
-    ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
+    #con = Serial('/dev/ttyACM0', 9600)
+    con = Serial('/dev/ttyUSB0', 9600)
 
     # Load all handlers
     ardurpc.load_handlers()
 
     # New instance
-    rpc = ardurpc.ArduRPC(serial=ser)
+    rpc = ardurpc.ArduRPC(connector=con)
 
     print('Version(Protocol): {0}'.format(rpc.getProtocolVersion()))
     print('Version(Library): {0}'.format('.'.join([str(i) for i in rpc.getLibraryVersion()])))

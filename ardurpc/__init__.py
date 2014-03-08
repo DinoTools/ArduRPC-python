@@ -18,10 +18,9 @@ class ArduRPC(Handler):
 
     """
 
-    def __init__(self, serial=None):
-        Handler.__init__(self)
+    def __init__(self, **kwargs):
+        Handler.__init__(self, **kwargs)
         self.handler_id = 255
-        self.serial = serial
 
         self._handlers = []
         for (handler_id, handler_type) in self.getHandlerList():
@@ -37,7 +36,7 @@ class ArduRPC(Handler):
                 continue
             handler = handler.get("handler")
             name = self.getHandlerName(handler_id)
-            self._handlers.append(handler(serial=self.serial, handler_id=handler_id, name=name))
+            self._handlers.append(handler(connector=self.connector, handler_id=handler_id, name=name))
 
     def getProtocolVersion(self):
         """

@@ -10,9 +10,6 @@ def connect():
     #con = Serial('/dev/ttyACM0', 9600)
     con = Serial('/dev/ttyUSB0', 9600)
 
-    # Load all handlers
-    ardurpc.load_handlers()
-
     # New instance
     rpc = ardurpc.ArduRPC(connector=con)
 

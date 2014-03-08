@@ -5,7 +5,7 @@ from ardurpc.handler import Handler
 
 __version__ = "0.2"
 
-handlers = {}
+_global_handlers = {}
 
 
 class ArduRPC(Handler):
@@ -18,25 +18,30 @@ class ArduRPC(Handler):
 
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, handlers=None, **kwargs):
         Handler.__init__(self, **kwargs)
         self.handler_id = 255
 
-        self._handlers = []
+        self._handlers = handlers
+
+        self._handler_cache = []
         for (handler_id, handler_type) in self.getHandlerList():
             handler = None
             mask = 16
             while mask > 0 and handler is None:
                 tmp_mask = (0xffff << (16 - mask)) & 0xffff
                 tmp_handler_id = handler_type & tmp_mask
-                handler = handlers.get(tmp_handler_id, None)
+                if self._handlers is not None:
+                    handler = self._handlers.get(tmp_handler_id, None)
+                else:
+                    handler = _global_handlers.get(tmp_handler_id, None)
                 mask = mask - 1
 
             if handler is None:
                 continue
             handler = handler.get("handler")
             name = self.getHandlerName(handler_id)
-            self._handlers.append(handler(connector=self.connector, handler_id=handler_id, name=name))
+            self._handler_cache.append(handler(connector=self.connector, handler_id=handler_id, name=name))
 
     def getProtocolVersion(self):
         """
@@ -120,7 +125,7 @@ class ArduRPC(Handler):
         """
 
         names = []
-        for h in self._handlers:
+        for h in self._handler_cache:
             names.append(h.name)
         return names
 
@@ -134,7 +139,7 @@ class ArduRPC(Handler):
 
         """
 
-        for handler in self._handlers:
+        for handler in self._handler_cache:
             if handler.name == name:
                 return handler
         return None
@@ -149,6 +154,17 @@ class ArduRPC(Handler):
         """
 
         return self._handlers
+
+    def get_handler_cache(self):
+        """
+        Get a list of all cached handlers.
+
+        :return: Dict: Key = Name, Value = Instance
+        :rtype: Dict
+
+        """
+
+        return self._handler_cache
 
     def get_version(self):
         """
@@ -183,10 +199,10 @@ def register(handler_type, handler, mask=16):
         # ToDo: error
         print("error")
         return
-    if handler_type in handlers:
+    if handler_type in _global_handlers:
         return
 
-    handlers[handler_type] = {
+    _global_handlers[handler_type] = {
         "handler": handler,
         "mask": mask
     }
@@ -216,3 +232,5 @@ def load_handlers():
             __import__("ardurpc.handler." + pkg, locals(), globals())
         except Exception as msg:
             print(str(msg))
+
+load_handlers()

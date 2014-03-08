@@ -1,8 +1,8 @@
 import ardurpc
-from ardurpc.handler.matrix_extended import MatrixExtended
+from ardurpc.handler.matrix import Extended
 
 
-class Colorduino_GFX(MatrixExtended):
+class Colorduino_GFX(Extended):
     """Wrapper."""
     def swapBuffers(self, copy=True):
         if type(copy) == bool:
@@ -19,5 +19,3 @@ class Colorduino_GFX(MatrixExtended):
             else:
                 auto_swap = 0
         return self._exec(0xA1, '>B', auto_swap)
-
-ardurpc.register(0x0281, Colorduino_GFX)

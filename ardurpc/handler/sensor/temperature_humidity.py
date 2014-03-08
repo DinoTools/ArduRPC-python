@@ -1,4 +1,3 @@
-import ardurpc
 from ardurpc.handler import Handler
 
 
@@ -51,8 +50,6 @@ class Temperature(Handler):
         """
         return self._exec(0x14)
 
-ardurpc.register(0x0401, Temperature)
-
 
 class Humidity(Temperature):
 
@@ -60,8 +57,6 @@ class Humidity(Temperature):
 
     def __init__(self, **kwargs):
         Temperature.__init__(self, **kwargs)
-
-ardurpc.register(0x0402, Humidity)
 
 
 class TemperatureHumidity(Handler):
@@ -144,5 +139,3 @@ class TemperatureHumidity(Handler):
 
         """
         return self._exec(0x24)
-
-ardurpc.register(0x0403, TemperatureHumidity)

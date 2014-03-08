@@ -2,7 +2,7 @@ import ardurpc
 from ardurpc.handler import Handler
 
 
-class PixelStripBase(Handler):
+class Base(Handler):
 
     """Wrapper."""
 
@@ -73,4 +73,21 @@ class PixelStripBase(Handler):
         return self._exec(0x12, '>HHBBB', start, end, color[0], color[1], color[2])
 
 
-ardurpc.register(0x0100, PixelStripBase, mask=8)
+class Extended(Base):
+
+    """Wrapper."""
+
+    def __init__(self, **kwargs):
+        Base.__init__(self, **kwargs)
+
+    def show(self):
+
+        """
+        Transmit the current values to the LEDs.
+        """
+
+        self._exec(0x05, None)
+
+
+ardurpc.register(0x0100, Base, mask=8)
+ardurpc.register(0x0180, Extended, mask=9)

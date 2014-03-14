@@ -167,13 +167,25 @@ class Extended(Base):
     def setRotation(self, rotation):
         return self._exec(0x50, '>B', rotation)
 
-    def drawBitmap(self, x, y, bitmap, w, h, color):
-        color = self._prepare_color(color)
-        #return self._exec(0x41, '>hhhBBB', x, y, radius, color[0], color[1], color[2])
+    def swapBuffers(self, copy=True):
+        if type(copy) == bool:
+            if copy:
+                copy = 1
+            else:
+                copy = 0
+        return self._exec(0x51, '>B', copy)
+
+    def setAutoSwapBuffers(self, auto_swap=True):
+        if type(auto_swap) == bool:
+            if auto_swap:
+                auto_swap = 1
+            else:
+                auto_swap = 0
+        return self._exec(0x52, '>B', auto_swap)
+
+    def drawBitmap(self, x, y, width, height, bitmap):
+        bitmap_fmt = 'B' * 3 * width * height
+        return self._exec(0x60, '>hhBBB' + bitmap_fmt, x, y, width, height, 2, *bitmap)
 
 ardurpc.register(0x0200, Base, mask=8)
 ardurpc.register(0x0280, Extended, mask=9)
-
-from .colorduino_gfx import Colorduino_GFX
-
-ardurpc.register(0x0281, Colorduino_GFX)

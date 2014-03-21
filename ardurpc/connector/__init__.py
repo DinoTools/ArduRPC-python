@@ -138,3 +138,6 @@ class BaseConnector(object):
 
     def is_connected(self):
         raise NotImplementedError()
+
+from ardurpc.connector.serial_con import Serial
+from ardurpc.connector.bluetooth_con import Bluetooth

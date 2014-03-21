@@ -27,7 +27,7 @@ class Serial(BaseConnector):
         if self.auto_connect is True:
             self.connect()
 
-    def _exec(self, data):
+    def _call(self, data):
         hex_data = binascii.hexlify(data)
         #print("exec", hex_data)
         i = 0
@@ -64,8 +64,7 @@ class Serial(BaseConnector):
                 continue
 
             #print("read:", data)
-            if data[0] == 58:  # ASCII(58) = :
-                data = data.decode('ASCII')
+            if data[:1] == b':':
                 data = data.rstrip()
                 #print(data)
                 return binascii.unhexlify(data[1:])

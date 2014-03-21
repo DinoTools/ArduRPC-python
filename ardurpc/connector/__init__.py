@@ -18,7 +18,7 @@ class BaseConnector(object):
         self.auto_connect = auto_connect
         self.auto_reconnect = auto_reconnect
 
-    def _exec(self, data):
+    def _call(self, data):
         raise NotImplementedError()
 
     def _parse_result(self, data):
@@ -31,7 +31,7 @@ class BaseConnector(object):
 
         """
 
-        return_code = data[0]
+        return_code = struct.unpack('>B', data[0:1])[0]
 
         if return_code == 127:
             raise Failure()
@@ -44,7 +44,7 @@ class BaseConnector(object):
         if return_code > 0:
             raise UnknownReturnCode()
 
-        return_type = data[1]
+        return_type = struct.unpack('>B', data[1:2])[0]
         if return_type == 0x00:
             return return_code
 
@@ -55,7 +55,7 @@ class BaseConnector(object):
 
         # Array
         if return_type == 0x10:
-            return_subtype = data[0]
+            return_subtype = struct.unpack('>B', data[0:1])[0]
             length = struct.unpack('>B', data[1:2])[0]
             data = data[2:]
             if return_subtype not in self._type_map:
@@ -104,7 +104,7 @@ class BaseConnector(object):
     def connect(self):
         raise NotImplementedError()
 
-    def exec(self, handler_id, command_id, fmt=None, *data):
+    def call(self, handler_id, command_id, fmt=None, *data):
         """
         Execute a command on the microcontroller.
 
@@ -129,7 +129,7 @@ class BaseConnector(object):
 
         data = pkt_head + pkt_data
 
-        result = self._exec(data)
+        result = self._call(data)
         if result is None:
             # ToDo: throw error
             pass

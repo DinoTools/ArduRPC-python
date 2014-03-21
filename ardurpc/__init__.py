@@ -51,7 +51,7 @@ class ArduRPC(Handler):
 
         """
 
-        return self._exec(0x01)
+        return self._call(0x01)
 
     def getLibraryVersion(self):
         """
@@ -61,7 +61,7 @@ class ArduRPC(Handler):
 
         """
 
-        return self._exec(0x02)
+        return self._call(0x02)
 
     def getMaxPacketSize(self):
         """
@@ -71,10 +71,10 @@ class ArduRPC(Handler):
 
         """
 
-        return self._exec(0x03)
+        return self._call(0x03)
 
     def getFunctionList(self):
-        return self._exec(0x10)
+        return self._call(0x10)
 
     def getHandlerList(self):
         """
@@ -86,7 +86,7 @@ class ArduRPC(Handler):
 
         """
 
-        return self._exec(0x20)
+        return self._call(0x20)
 
     def getHandlerName(self, handler_id):
         """
@@ -98,7 +98,7 @@ class ArduRPC(Handler):
 
         """
 
-        return self._exec(0x21, '>B', handler_id)
+        return self._call(0x21, '>B', handler_id)
 
     def get_handler(self, handler_id):
         """

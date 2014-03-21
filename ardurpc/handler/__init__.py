@@ -13,7 +13,7 @@ class Handler(object):
         self.connector = connector
         self.timeout = 1
 
-    def _exec(self, command_id, fmt=None, *data):
+    def _call(self, command_id, fmt=None, *data):
         """
         Execute a command on the microcontroller.
 
@@ -25,4 +25,4 @@ class Handler(object):
 
         """
 
-        return self.connector.exec(self.handler_id, command_id, fmt, *data)
+        return self.connector.call(self.handler_id, command_id, fmt, *data)

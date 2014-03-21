@@ -30,7 +30,7 @@ class Base(Handler):
 
         """
 
-        return self._exec(0x01)
+        return self._call(0x01)
 
     def getPixelCount(self):
         """
@@ -41,7 +41,7 @@ class Base(Handler):
 
         """
 
-        return self._exec(0x02)
+        return self._call(0x02)
 
     def setPixelColor(self, n, color):
         """
@@ -55,7 +55,7 @@ class Base(Handler):
 
         color = self._prepare_color(color)
 
-        return self._exec(0x11, '>HBBB', n, color[0], color[1], color[2])
+        return self._call(0x11, '>HBBB', n, color[0], color[1], color[2])
 
     def setRangeColor(self, start, end, color):
         """
@@ -70,7 +70,7 @@ class Base(Handler):
 
         color = self._prepare_color(color)
 
-        return self._exec(0x12, '>HHBBB', start, end, color[0], color[1], color[2])
+        return self._call(0x12, '>HHBBB', start, end, color[0], color[1], color[2])
 
 
 class Extended(Base):
@@ -86,7 +86,7 @@ class Extended(Base):
         Transmit the current values to the LEDs.
         """
 
-        self._exec(0x05, None)
+        self._call(0x05, None)
 
 
 ardurpc.register(0x0100, Base, mask=8)

@@ -17,7 +17,7 @@ class Temperature(Handler):
         :rtype: Float
 
         """
-        return self._exec(0x11)
+        return self._call(0x11)
 
     def getMaxValue(self):
         """
@@ -28,7 +28,7 @@ class Temperature(Handler):
         :rtype: Float
 
         """
-        return self._exec(0x12)
+        return self._call(0x12)
 
     def getAccuracy(self):
         """
@@ -38,7 +38,7 @@ class Temperature(Handler):
         :rtype: Float
 
         """
-        return self._exec(0x13)
+        return self._call(0x13)
 
     def getValue(self):
         """
@@ -48,7 +48,7 @@ class Temperature(Handler):
         :rtype: Float
 
         """
-        return self._exec(0x14)
+        return self._call(0x14)
 
 
 class Humidity(Temperature):
@@ -74,7 +74,7 @@ class TemperatureHumidity(Handler):
         :rtype: Float
 
         """
-        return self._exec(0x11)
+        return self._call(0x11)
 
     def getMaxTemperatureValue(self):
         """
@@ -83,7 +83,7 @@ class TemperatureHumidity(Handler):
         :rtype: Float
 
         """
-        return self._exec(0x12)
+        return self._call(0x12)
 
     def getTemperatureAccuracy(self):
         """
@@ -92,7 +92,7 @@ class TemperatureHumidity(Handler):
         :rtype: Float
 
         """
-        return self._exec(0x13)
+        return self._call(0x13)
 
     def getTemperature(self):
         """
@@ -101,7 +101,7 @@ class TemperatureHumidity(Handler):
         :rtype: Float
 
         """
-        return self._exec(0x14)
+        return self._call(0x14)
 
     def getMinHumidityValue(self):
         """
@@ -111,7 +111,7 @@ class TemperatureHumidity(Handler):
         :rtype: Float
 
         """
-        return self._exec(0x21)
+        return self._call(0x21)
 
     def getMaxHumidityValue(self):
         """
@@ -120,7 +120,7 @@ class TemperatureHumidity(Handler):
         :rtype: Float
 
         """
-        return self._exec(0x22)
+        return self._call(0x22)
 
     def getHumidityAccuracy(self):
         """
@@ -129,7 +129,7 @@ class TemperatureHumidity(Handler):
         :rtype: Float
 
         """
-        return self._exec(0x23)
+        return self._call(0x23)
 
     def getHumidity(self):
         """
@@ -138,4 +138,4 @@ class TemperatureHumidity(Handler):
         :rtype: Float
 
         """
-        return self._exec(0x24)
+        return self._call(0x24)

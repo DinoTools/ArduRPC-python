@@ -9,7 +9,12 @@ It uses pySerial to open and manage connections to a ArduRPC device over a seria
 import binascii
 import time
 
-import serial
+import_error = None
+try:
+    import serial
+except ImportError as e:
+    serial = None
+    import_error = e
 
 from ardurpc.connector import BaseConnector
 from ardurpc.exception import Timeout
@@ -18,6 +23,8 @@ from ardurpc.exception import Timeout
 class Serial(BaseConnector):
 
     def __init__(self, port=None, baudrate=9600, **kwargs):
+        if serial == None:
+            raise import_error
         BaseConnector.__init__(self, **kwargs)
         self.timeout = 3
         self.serial = None

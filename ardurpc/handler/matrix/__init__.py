@@ -1,6 +1,11 @@
 import ardurpc
 from ardurpc.handler import Handler
 
+try:
+    from PIL import Image as PILImage
+except ImportError:
+    PILImage = None
+
 
 class Base(Handler):
     """Handler for the Base Matrix type"""
@@ -183,9 +188,43 @@ class Extended(Base):
                 auto_swap = 0
         return self._call(0x52, '>B', auto_swap)
 
-    def drawBitmap(self, x, y, width, height, bitmap):
-        bitmap_fmt = 'B' * 3 * width * height
-        return self._call(0x60, '>hhBBB' + bitmap_fmt, x, y, width, height, 2, *bitmap)
+    def drawImage(self, x, y, image, encoding=2):
+        """
+        """
+        if encoding < 0 or encoding > 2:
+            raise Exception("Encoding not supported")
+
+        width = None
+        height = None
+        data = None
+        if isinstance(image, (tuple, list)):
+            width, height, data = image
+        elif PILImage is not None and isinstance(image, PILImage.Image):
+            width, height = image.size
+            data = []
+            for tmp_y in range(0, height):
+                for tmp_x in range(0, width):
+                    pixel = image.getpixel((tmp_x, tmp_y))
+                    red, green, blue = pixel[:3]
+                    color_data = None
+
+                    if encoding == 0:
+                        color_data = (int(red / 85) << 6) | (int(green / 36) << 3) | (int(blue / 36))
+                        color_data = (color_data & 0xff, )
+                    elif encoding == 1:
+                        color_data = (int(red / 8) << 11) | (int(green / 4) << 5) | (int(blue / 8))
+                        color_data = ((color_data >> 8), (color_data & 0xff))
+                    elif encoding == 2:
+                        color_data = (red, green, blue)
+
+                    if color_data is None:
+                        raise Exception("Something went wrong while encoding the image data")
+
+                    data += color_data
+        else:
+            raise Exception("Image type not supported")
+
+        return self._call(0x60, '>hhBBB%ds' % len(data), x, y, width, height, encoding, bytes(data))
 
 ardurpc.register(0x0200, Base, mask=8)
 ardurpc.register(0x0280, Extended, mask=9)

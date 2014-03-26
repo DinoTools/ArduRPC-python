@@ -2,13 +2,14 @@
 
 import serial
 import ardurpc
-from ardurpc.connector.serial import Serial
+from ardurpc.connector.serial import Serial, UDP
 
 
 def connect():
     # Connect to the serial port
     #con = Serial('/dev/ttyACM0', 9600)
     con = Serial('/dev/ttyUSB0', 9600)
+    #con = UDP(host="192.168.1.1", port=1234)
 
     # New instance
     rpc = ardurpc.ArduRPC(connector=con)

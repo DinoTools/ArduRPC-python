@@ -35,6 +35,10 @@ class ArduRPC(Handler):
                     handler = self._handlers.get(tmp_handler_id, None)
                 else:
                     handler = _global_handlers.get(tmp_handler_id, None)
+
+                if handler is not None and handler.get("mask") != mask:
+                    handler = None
+
                 mask = mask - 1
 
             if handler is None:

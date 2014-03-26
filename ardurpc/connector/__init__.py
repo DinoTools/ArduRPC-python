@@ -1,5 +1,6 @@
 import struct
 
+from ardurpc.exception import *
 
 class BaseConnector(object):
 
@@ -41,6 +42,10 @@ class BaseConnector(object):
             raise HandlerNotFound()
         if return_code == 124:
             raise FunctionNotFound()
+        if return_code == 123:
+            raise InvalidHeader()
+        if return_code == 122:
+            raise InvalidRequest()
         if return_code > 0:
             raise UnknownReturnCode()
 

@@ -51,6 +51,20 @@ class HandlerNotFound(Failure):
     pass
 
 
+class InvalidHeader(Failure):
+
+    """The header was malformed"""
+
+    pass
+
+
+class InvalidRequest(Failure):
+
+    """The request was malformed"""
+
+    pass
+
+
 class CommandNotFound(Failure):
 
     """The command is not available on the microcontroller."""

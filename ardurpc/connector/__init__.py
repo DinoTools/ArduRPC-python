@@ -141,3 +141,4 @@ class BaseConnector(object):
 
 from ardurpc.connector.serial_con import Serial
 from ardurpc.connector.bluetooth_con import Bluetooth
+from ardurpc.connector.ethernet_con import UDP

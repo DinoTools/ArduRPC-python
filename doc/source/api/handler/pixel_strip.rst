@@ -1,13 +1,11 @@
-===========
-Pixel Strip
-===========
+=====
+Strip
+=====
 
-.. automodule:: ardurpc.handler.pixel_strip_base
+.. autoclass:: ardurpc.handler.strip.Base
    :members:
-   :private-members:
-   :special-members:
+   :undoc-members:
 
-.. automodule:: ardurpc.handler.pixel_strip_extended
+.. autoclass:: ardurpc.handler.strip.Extended
    :members:
-   :private-members:
-   :special-members:
+   :undoc-members:

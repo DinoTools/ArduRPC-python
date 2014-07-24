@@ -2,12 +2,10 @@
 Matrix
 ======
 
-.. automodule:: ardurpc.handler.matrix_base
+.. autoclass:: ardurpc.handler.matrix.Base
    :members:
-   :private-members:
-   :special-members:
+   :undoc-members:
 
-.. automodule:: ardurpc.handler.matrix_extended
+.. autoclass:: ardurpc.handler.matrix.Extended
    :members:
-   :private-members:
-   :special-members:
+   :undoc-members:

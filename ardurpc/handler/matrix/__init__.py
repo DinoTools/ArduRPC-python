@@ -73,7 +73,7 @@ class Base(Handler):
 
         """
         color = self._prepare_color(color)
-        return self._call(0x20, '>hhhhBBB', x0, y0, x1, y1, color[0], color[1], color[2])
+        return self._call(0x21, '>hhhhBBB', x0, y0, x1, y1, color[0], color[1], color[2])
 
     def fillScreen(self, color):
         """
@@ -81,7 +81,7 @@ class Base(Handler):
 
         """
         color = self._prepare_color(color)
-        return self._call(0x25, '>BBB', color[0], color[1], color[2])
+        return self._call(0x26, '>BBB', color[0], color[1], color[2])
 
 class Extended(Base):
     """Handler for the Extended Matrix type"""
@@ -91,67 +91,67 @@ class Extended(Base):
 
     def drawFastVLine(self, x, y, h, color):
         color = self._prepare_color(color)
-        return self._call(0x21, '>hhhBBB', x, y, h, color[0], color[1], color[2])
+        return self._call(0x22, '>hhhBBB', x, y, h, color[0], color[1], color[2])
 
     def drawFastHLine(self, x, y, w, color):
         color = self._prepare_color(color)
-        return self._call(0x22, '>hhhBBB', x, y, w, color[0], color[1], color[2])
+        return self._call(0x23, '>hhhBBB', x, y, w, color[0], color[1], color[2])
 
     def drawRect(self, x, y, w, h, color):
         color = self._prepare_color(color)
-        return self._call(0x23, '>hhhhBBB', x, y, w, h, color[0], color[1], color[2])
+        return self._call(0x24, '>hhhhBBB', x, y, w, h, color[0], color[1], color[2])
 
     def fillRect(self, x, y, w, h, color):
         color = self._prepare_color(color)
-        return self._call(0x24, '>hhhhBBB', x, y, w, h, color[0], color[1], color[2])
+        return self._call(0x25, '>hhhhBBB', x, y, w, h, color[0], color[1], color[2])
 
     def invertDisplay(self, i):
         # ToDo:
         color = self._prepare_color(color)
-        return self._call(0x26, '>hhhhBBB', x, y, w, h, color[0], color[1], color[2])
+        return self._call(0x27, '>hhhhBBB', x, y, w, h, color[0], color[1], color[2])
 
     def drawCircle(self, x, y, radius, color):
         color = self._prepare_color(color)
-        return self._call(0x30, '>hhhBBB', x, y, radius, color[0], color[1], color[2])
+        return self._call(0x31, '>hhhBBB', x, y, radius, color[0], color[1], color[2])
 
     def fillCircle(self, x, y, radius, color):
         color = self._prepare_color(color)
-        return self._call(0x31, '>hhhBBB', x, y, radius, color[0], color[1], color[2])
+        return self._call(0x32, '>hhhBBB', x, y, radius, color[0], color[1], color[2])
 
     def drawTriangle(self, x0, y0, x1, y1, x2, y2, color):
         color = self._prepare_color(color)
-        return self._call(0x32, '>hhhhhhBBB', x0, y0, x1, y1, x2, y2, color[0], color[1], color[2])
+        return self._call(0x33, '>hhhhhhBBB', x0, y0, x1, y1, x2, y2, color[0], color[1], color[2])
 
     def fillTriangle(self, x0, y0, x1, y1, x2, y2, color):
         color = self._prepare_color(color)
-        return self._call(0x33, '>hhhhhhBBB', x0, y0, x1, y1, x2, y2, color[0], color[1], color[2])
+        return self._call(0x34, '>hhhhhhBBB', x0, y0, x1, y1, x2, y2, color[0], color[1], color[2])
 
     def drawRoundRect(self, x, y, w, h, radius, color):
         color = self._prepare_color(color)
-        return self._call(0x34, '>hhhhhBBB', x, y, w, h, radius, color[0], color[1], color[2])
+        return self._call(0x35, '>hhhhhBBB', x, y, w, h, radius, color[0], color[1], color[2])
 
     def fillRoundRect(self, x, y, w, h, radius, color):
         color = self._prepare_color(color)
-        return self._call(0x35, '>hhhhhBBB', x, y, w, h, radius, color[0], color[1], color[2])
+        return self._call(0x36, '>hhhhhBBB', x, y, w, h, radius, color[0], color[1], color[2])
 
     def drawChar(self, x, y, c, color, bg, size):
         c = c.encode('ASCII')
         color = self._prepare_color(color)
         bg = self._prepare_color(bg)
-        return self._call(0x40, '>hhBBBBBBBB', x, y, c[0], color[0], color[1], color[2], bg[0], bg[1], bg[2], size)
+        return self._call(0x41, '>hhBBBBBBBB', x, y, c[0], color[0], color[1], color[2], bg[0], bg[1], bg[2], size)
 
     def setCursor(self, x, y):
-        return self._call(0x41, '>hh', x, y)
+        return self._call(0x42, '>hh', x, y)
 
     def setTextColor(self, color, bg=None):
         color = self._prepare_color(color)
         if bg is None:
-            return self._call(0x42, '>BBB', color[0], color[1], color[2])
+            return self._call(0x43, '>BBB', color[0], color[1], color[2])
         bg = self._prepare_color(bg)
-        return self._call(0x43, '>BBBBBB', color[0], color[1], color[2], bg[0], bg[1], bg[2])
+        return self._call(0x44, '>BBBBBB', color[0], color[1], color[2], bg[0], bg[1], bg[2])
 
     def setTextSize(self, size):
-        return self._call(0x44, '>B', size)
+        return self._call(0x45, '>B', size)
 
     def setTextWrap(self, wrap):
         if type(wrap) == bool:
@@ -159,18 +159,18 @@ class Extended(Base):
                 wrap = 1
             else:
                 wrap = 0
-        return self._call(0x45, '>B', wrap)
+        return self._call(0x46, '>B', wrap)
 
     def write(self, s):
         for c in s:
             c = c.encode('ASCII')
-            res = self._call(0x46, '>B', c[0])
+            res = self._call(0x47, '>B', c[0])
             if res != 0:
                 return res
         return 0
 
     def setRotation(self, rotation):
-        return self._call(0x50, '>B', rotation)
+        return self._call(0x51, '>B', rotation)
 
     def swapBuffers(self, copy=True):
         if type(copy) == bool:
@@ -178,7 +178,7 @@ class Extended(Base):
                 copy = 1
             else:
                 copy = 0
-        return self._call(0x51, '>B', copy)
+        return self._call(0x52, '>B', copy)
 
     def setAutoSwapBuffers(self, auto_swap=True):
         if type(auto_swap) == bool:
@@ -186,7 +186,7 @@ class Extended(Base):
                 auto_swap = 1
             else:
                 auto_swap = 0
-        return self._call(0x52, '>B', auto_swap)
+        return self._call(0x53, '>B', auto_swap)
 
     def drawImage(self, x, y, image, encoding=2):
         """
@@ -224,7 +224,7 @@ class Extended(Base):
         else:
             raise Exception("Image type not supported")
 
-        return self._call(0x60, '>hhBBB%ds' % len(data), x, y, width, height, encoding, bytes(data))
+        return self._call(0x61, '>hhBBB%ds' % len(data), x, y, width, height, encoding, bytes(data))
 
 ardurpc.register(0x0200, Base, mask=8)
 ardurpc.register(0x0280, Extended, mask=9)

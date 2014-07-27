@@ -19,7 +19,7 @@ class Handler(object):
 
         :param Integer command_id: The ID of the command
         :param String fmt: The format of the data
-        :param *data: Parameters for the command
+        :param data: Parameters for the command
 
         :return: Returns the result
 

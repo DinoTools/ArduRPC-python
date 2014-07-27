@@ -4,6 +4,7 @@ Handler
 .. toctree::
    :maxdepth: 2
 
+   lcd
    matrix
    pixel_strip
 

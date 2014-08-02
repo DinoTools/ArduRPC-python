@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.3.0 - `master`_
-~~~~~~~~~~~~~~~~~
+0.3.0 - 02.08.2014
+~~~~~~~~~~~~~~~~~~
 
 * Support Text-LCD handlers
 * Support handler for Arduino based boards

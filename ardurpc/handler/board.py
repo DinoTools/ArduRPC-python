@@ -38,7 +38,7 @@ class Board(Handler):
         Set the value of a digital output pin.
 
         :param Integer pin: Pin number
-        :param Integer value: The PWM value (0, 1, False, True)
+        :param Integer value: The value (0, 1, False, True)
         """
         if value is True:
             value = 1

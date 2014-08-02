@@ -13,7 +13,7 @@ __title__ = "ardurpc"
 __summary__ = "An extensible library to control microcontroller boards like Arduino using Python and the ArduRPC protocol"
 __uri__ = "https://github.com/DinoTools/ArduRPC-python"
 
-__version__ = "0.2"
+__version__ = "0.3"
 
 __author__ = "PhiBo (DinoTools)"
 __email__ = ""

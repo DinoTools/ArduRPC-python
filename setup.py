@@ -1,20 +1,27 @@
 #!/usr/bin/env python
-
-import ez_setup
-ez_setup.use_setuptools()
-
+import os
 from setuptools import setup, find_packages
-import sys
 
-import ardurpc
+base_dir = os.path.dirname(__file__)
+
+about = {}
+with open(os.path.join(base_dir, "ardurpc", "__about__.py")) as f:
+    exec(f.read(), about)
+
+with open(os.path.join(base_dir, "README.rst")) as f:
+    long_description = f.read()
 
 setup(
-    name="ardurpc",
-    version=ardurpc.__version__,
-    license="LGPLv3",
-    description="An extensible library to control microcontroller boards like Arduino using Python and the ArduRPC protocol",
+    name=about["__title__"],
+    version=about["__version__"],
+
+    description=about["__summary__"],
+    long_description=long_description,
+    license=about["__license__"],
+    url=about["__uri__"],
+
     zip_safe=False,
-    author="DinoTools.org",
+    author=about["__author__"],
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Environment :: Console",
@@ -30,7 +37,7 @@ setup(
         "Programming Language :: Python :: 3.3"
     ],
     #install_requires=[""],
-    packages=find_packages(),
+    packages=find_packages(exclude=["*.tests", "*.tests.*"]),
     package_dir={
         "ardurpc": "ardurpc"
     },

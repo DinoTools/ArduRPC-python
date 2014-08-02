@@ -8,6 +8,7 @@ ArduRPC is an extensible library to control microcontroller boards like Arduino_
 
    ardurpc
    getting-started
+   example
    license
    changelog
 

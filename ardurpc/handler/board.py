@@ -56,4 +56,4 @@ class Board(Handler):
         """
         return self._call(0x31, ">BB", pin, value)
 
-ardurpc.register(0xff01, Board, mask=16)
+ardurpc.register(0x0501, Board, mask=16)
